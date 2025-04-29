@@ -1,11 +1,13 @@
-name: hola-mundo #Nombre del workflow
-on: [push] #evento que lo activará
-jobs: #Definición de los jobs
-	hola-mundo: #Nombre del job
-		runs-on: ubuntu-latest #Maquina en la que correrá
-		steps: #Lista de steps del job hola-mundo
-			- name: Public IP #Nombre del step
-				id : ip #identificador usable dentro del job para otros steps
-				uses: haythem/public-ip@v1.3 #Usará el action haythem/public-ip
-		  - name: Hola mundo 
-				run : echo ¡Hola Mundo desde ${{ steps.ip.outputs.ipv4 }}! #bash
+name: Aprendiendo GitHub Actions
+run-name: ¡Estoy aprendiendo GitHub Actions!
+on: [push]
+jobs:
+  hola-mundo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Definir variable
+        run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+      - name: Correr script
+        run: python hola_mundo.py
